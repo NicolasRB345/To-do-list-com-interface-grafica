@@ -3,6 +3,7 @@ import os
 
 PATH_NAME_LIST = 'data_list.json'
 PATH_NAME_LIST_TRASH = 'data_list_trash.json'
+LIST_OF_COMMANDS = [0, 1, 2, 3, 4, 5, 6, 7]
 
 while True:
     list_tasks = read([], PATH_NAME_LIST)
@@ -19,40 +20,33 @@ while True:
     print('[7] Quit the program 👋')
 
     try:
-        command = int(input('Choose one of the commands above: '))
+        command = int(input("Choose one of the number's command above: "))
     except ValueError:
         os.system('cls')
-        print('Please, type only numbers.')
+        print('Invalid command!')
         continue
 
-    if command == 0:
-        list(list_tasks)
+    commands = {
+        0 : lambda: list(list_tasks),
+        1 : lambda: add(list_tasks, PATH_NAME_LIST),
+        2 : lambda: remove(list_tasks, list_trash, PATH_NAME_LIST, PATH_NAME_LIST_TRASH),
+        3 : lambda: restore(list_tasks, list_trash, PATH_NAME_LIST, PATH_NAME_LIST_TRASH),
+        4 : lambda: see_Trash(list_trash),
+        5 : lambda: clear_list(list_tasks, PATH_NAME_LIST),
+        6 : lambda: clear_trash(list_trash, PATH_NAME_LIST_TRASH)
+    }
 
-    elif command == 1:
-        add(list_tasks, PATH_NAME_LIST)
-
-    elif command == 2:
-        remove(list_tasks, list_trash, PATH_NAME_LIST, PATH_NAME_LIST_TRASH)
-
-    elif command == 3:
-        restore(list_tasks, list_trash, PATH_NAME_LIST, PATH_NAME_LIST_TRASH)
-
-    elif command == 4:
-        see_Trash(list_trash)
-
-    elif command == 5:
-        clear_list(list_tasks, PATH_NAME_LIST)
-
-    elif command == 6:
-        clear_trash(list_trash, PATH_NAME_LIST_TRASH)
-    
-    elif command == 7:
+    if command == 7:
+        os.system('cls')
         print('See you soon :)')
         break
-    
-    else:
+
+    if command not in LIST_OF_COMMANDS:
         os.system('cls')
-        print('Please, type only a valid command.')
+        print('Invalid command!')
         continue
 
-    print('hiii')
+
+    command_choice = commands.get(command)()
+
+    
