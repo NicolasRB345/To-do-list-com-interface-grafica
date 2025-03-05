@@ -54,3 +54,5 @@ while True:
         os.system('cls')
         print('Please, type only a valid command.')
         continue
+
+    print('hiii')
