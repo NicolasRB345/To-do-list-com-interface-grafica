@@ -1,5 +1,7 @@
+from datetime import datetime
 import json
 import os
+
 
 def save(list, path):
     data = []
@@ -25,6 +27,8 @@ def read(list, path):
 
 def list(list_task):
     os.system('cls')
+    print('📜 List')
+    print()
     try:
         if list_task == []:
             print("There are no tasks in your list.")
@@ -40,12 +44,18 @@ def list(list_task):
 def add(list, path):
     os.system('cls')
     try:
+        date_now = datetime.now()
+        fmt_year = date_now.strftime('%Y-%m-%d')
+        fmt_hour = date_now.strftime('%H:%M')
         task = input('Create a new task: ')
-        list.append(task)
+        fmt_task = f'{task} (Created on {fmt_year} at {fmt_hour})'
+        list.append(fmt_task)
         save(list, path)
         print('New task added.')
     except AttributeError:
-        print('Please, only for your first task add for the first time, I ask to you add it again :)')
+        print('Please, only for your first task add '
+              'for the first time, I ask to you add it again :)'
+              )
         pass
 
 
@@ -81,6 +91,8 @@ def restore(list, list_trash, path, path_trash):
 
 def see_Trash(list_trash):
     os.system('cls')
+    print('🗑️  Trash')
+    print()
     if list_trash == []:
         print('There are no tasks to see in the Trash.')
 
@@ -95,7 +107,9 @@ def clear_list(list, path):
 
     else:
         while True:
-            choice = input('Are you sure that you want to delete all tasks from your list of tasks? [Y/n]: ').upper()
+            choice = input('Are you sure that you want '
+            'to delete all tasks from your list of tasks? [Y/n]: '
+            ).upper()
 
             if choice == 'Y':
                 list = []
@@ -116,7 +130,9 @@ def clear_trash(list_trash, path_trash):
 
     else:
         while True:
-            choice = input('Are you sure that you want to delete all tasks from the Trash? [Y/n]|: ').upper()
+            choice = input('Are you sure that you want '
+            'to delete all tasks from the Trash? [Y/n]|: '
+            ).upper()
 
             if choice == 'Y':
                 list_trash = []
